@@ -1,0 +1,6 @@
+record_type,year_or_period,road_deaths,calculation,target_reduction_percent,target_road_deaths,source
+observed_year,2018,1135,Counted from current ARDD fatality-level records,,,https://datahub.roadsafety.gov.au/reporting/monthly-road-deaths
+observed_year,2019,1186,Counted from current ARDD fatality-level records,,,https://datahub.roadsafety.gov.au/reporting/monthly-road-deaths
+observed_year,2020,1097,Counted from current ARDD fatality-level records,,,https://datahub.roadsafety.gov.au/reporting/monthly-road-deaths
+strategy_baseline,2018-2020,1139.333333,"Arithmetic mean of 2018, 2019 and 2020 annual road deaths",,,https://www.roadsafety.gov.au/nrss/fact-sheets/performance-monitoring
+strategy_target,2030,,50% reduction from the 2018-2020 three-year average,50,569.666667,https://www.roadsafety.gov.au/nrss/fact-sheets/performance-monitoring

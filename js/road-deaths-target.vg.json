@@ -1,0 +1,125 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Road deaths and the 2030 target",
+    "subtitle": "Observed annual deaths and the national 2030 target"
+  },
+  "width": "container",
+  "height": 280,
+  "data": {
+    "url": "data/nrss-2030-road-death-target.csv"
+  },
+  "layer": [
+    {
+      "transform": [
+        {"filter": "datum.record_type == 'observed_year'"},
+        {"calculate": "toNumber(datum.year_or_period)", "as": "year"}
+      ],
+      "mark": {
+        "type": "line",
+        "point": {"filled": true, "size": 70},
+        "strokeWidth": 3,
+        "color": "#a33a2b"
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative",
+          "title": "Year",
+          "scale": {"domain": [2018, 2030]},
+          "axis": {"format": "d", "tickCount": 7}
+        },
+        "y": {
+          "field": "road_deaths",
+          "type": "quantitative",
+          "title": "Road deaths",
+          "scale": {"zero": false, "domain": [500, 1250]}
+        },
+        "tooltip": [
+          {"field": "year", "type": "quantitative", "title": "Year", "format": "d"},
+          {"field": "road_deaths", "type": "quantitative", "title": "Road deaths", "format": ","}
+        ]
+      }
+    },
+    {
+      "transform": [
+        {"filter": "datum.record_type == 'strategy_target'"}
+      ],
+      "mark": {
+        "type": "rule",
+        "color": "#364e57",
+        "strokeDash": [7, 5],
+        "strokeWidth": 2
+      },
+      "encoding": {
+        "y": {
+          "field": "target_road_deaths",
+          "type": "quantitative"
+        },
+        "tooltip": [
+          {"field": "target_road_deaths", "type": "quantitative", "title": "2030 target", "format": ".0f"},
+          {"field": "calculation", "type": "nominal", "title": "Definition"}
+        ]
+      }
+    },
+    {
+      "transform": [
+        {"filter": "datum.record_type == 'strategy_target'"},
+        {"calculate": "2030", "as": "year"}
+      ],
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 95,
+        "color": "#364e57"
+      },
+      "encoding": {
+        "x": {"field": "year", "type": "quantitative"},
+        "y": {"field": "target_road_deaths", "type": "quantitative"},
+        "tooltip": [
+          {"field": "year", "type": "quantitative", "title": "Target year", "format": "d"},
+          {"field": "target_road_deaths", "type": "quantitative", "title": "Target road deaths", "format": ".0f"}
+        ]
+      }
+    },
+    {
+      "transform": [
+        {"filter": "datum.record_type == 'strategy_target'"},
+        {"calculate": "2030", "as": "year"}
+      ],
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "baseline": "bottom",
+        "dx": -8,
+        "dy": -7,
+        "fontSize": 12,
+        "fontWeight": "bold",
+        "color": "#364e57"
+      },
+      "encoding": {
+        "x": {"field": "year", "type": "quantitative"},
+        "y": {"field": "target_road_deaths", "type": "quantitative"},
+        "text": {"value": "2030 target: 570"}
+      }
+    }
+  ],
+  "config": {
+    "background": "#ffffff",
+    "font": "Arial",
+    "axis": {
+      "domainColor": "#5f696c",
+      "gridColor": "#e4e7e4",
+      "labelColor": "#202628",
+      "titleColor": "#202628"
+    },
+    "title": {
+      "anchor": "start",
+      "color": "#202628",
+      "fontSize": 18,
+      "subtitleColor": "#5f696c",
+      "subtitleFontSize": 12
+    },
+    "view": {"stroke": null}
+  }
+}
