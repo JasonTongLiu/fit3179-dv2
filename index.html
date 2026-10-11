@@ -1,176 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Road Safety in Australia</title>
-
-  <!-- Pure.css, following the Week 9 multiple-visualisations studio example. -->
+  <title>The Road Ahead — Road Safety in Australia</title>
+  <!-- Pure.css grid, following the FIT3179 multiple-visualisations studio structure. -->
   <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css">
   <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/grids-responsive-min.css">
-  <link rel="stylesheet" href="css/styles.css">
-
-  <!-- Vega-Lite libraries used in the FIT3179 studios. -->
+  <link rel="stylesheet" href="css/styles.css?v=20261012-5">
+  <!-- Vega and Vega-Lite versions used by the studio examples. -->
   <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
 </head>
-
 <body>
   <main class="page">
     <header class="hero">
-      <p class="topic-number">FIT3179 Data Visualisation 2 · Topic 24</p>
-      <h1>Road Safety in Australia</h1>
-      <p class="lead">
-        How has road safety changed, where are the risks greatest, and how does Australia compare with other countries?
-      </p>
+      <p class="eyebrow">Australian road safety</p>
+      <h1>The Road Ahead</h1>
+      <p class="lead">Australia's roads are much safer than they were three decades ago, but recent progress is uneven. The following charts use only the latest downloaded records—no forecast values are added.</p>
     </header>
 
-    <section class="story-section" aria-labelledby="overview-heading">
+    <section class="story-section" aria-labelledby="trend-heading">
       <div class="section-heading">
         <p class="section-number">01</p>
-        <div>
-          <h2 id="overview-heading">Australia over time</h2>
-          <p>Begin with the national trend and the 2030 road-death target.</p>
-        </div>
+        <div><h2 id="trend-heading">A long decline, then slower progress</h2><p>Start with the national pattern and compare the latest complete year with the 2030 target.</p></div>
       </div>
-
-      <div class="pure-g chart-row">
-        <div class="pure-u-1 pure-u-md-2-3">
-          <article class="chart-card">
-            <div id="road-deaths-target" class="vis-container" aria-label="Road deaths and 2030 target chart"></div>
-          </article>
-        </div>
-        <div class="pure-u-1 pure-u-md-1-3">
-          <aside class="story-note">
-            <h3>Story note</h3>
-            <p>
-              Replace this text with one clear observation from the completed chart. Keep the language suitable for a general Australian audience.
-            </p>
-          </aside>
-        </div>
+      <div class="narrative-block">
+        <p>Australia recorded 2,800 road deaths in 1989. By 2025, that total had fallen to 1,310, while the population-adjusted fatality rate declined from 16.5 to 4.7 deaths per 100,000 people.</p>
+        <p>The long-term improvement is substantial, but the recent path is less reassuring. The 2025 total remains more than twice the 2030 target of about 570 deaths. The 2026 point covers January to July only, so it is shown for recency rather than used as a full-year comparison.</p>
       </div>
-
+      <div class="pure-g chart-row"><div class="pure-u-1"><article class="chart-card">
+        <h3>Fatalities and fatality rate, 1989–2026</h3>
+        <div id="chart-1" class="vis-container vis-wide" aria-label="Annual fatalities and fatality rate"></div>
+        <p class="chart-narrative">Both measures show the same long-term improvement, but the annual count has moved away from its 2020 low and reached 1,310 in 2025. The rate remains much lower than in 1989 because the number of deaths fell while Australia's population grew.</p>
+        <p class="reading-tip"><strong>How to read:</strong> Use the left axis for navy fatalities and the right axis for the teal rate. Compare the direction of the two lines rather than their vertical distance. The coral 2026 point covers January–July only.</p>
+        <p class="source-note">Source: BITRE Australian Road Deaths Database; ABS national population (December observations).</p>
+      </article></div></div>
       <div class="pure-g chart-row">
-        <div class="pure-u-1 pure-u-md-1-2">
-          <article class="chart-card placeholder">
-            <p class="chart-label">Chart 2</p>
-            <h3>Deaths and fatality rate over time</h3>
-            <p>Suggested idiom: multi-line chart or layered line chart.</p>
-          </article>
-        </div>
-        <div class="pure-u-1 pure-u-md-1-2">
-          <article class="chart-card placeholder">
-            <p class="chart-label">Chart 3</p>
-            <h3>Who is most affected?</h3>
-            <p>Suggested idiom: bars for road user, age group, or sex.</p>
-          </article>
-        </div>
+        <div class="pure-u-1 pure-u-md-1-2"><article class="chart-card">
+          <h3>When do road deaths occur?</h3>
+          <div id="chart-2" class="vis-container" aria-label="Month by year fatality heatmap"></div>
+          <p class="chart-narrative">The grid becomes generally lighter over time, reinforcing the long-run decline, although darker months still interrupt that pattern. The latest row ends in July because no later 2026 observations are included.</p>
+          <p class="reading-tip"><strong>How to read:</strong> Read across a row to compare months within one year, or down a column to compare the same month over time. Darker cells mean more fatalities.</p>
+          <p class="source-note">Source: BITRE Count By Date.</p>
+        </article></div>
+        <div class="pure-u-1 pure-u-md-1-2"><article class="chart-card">
+          <h3>Progress toward the 2030 target</h3>
+          <div id="chart-3" class="vis-container" aria-label="Road deaths compared with the 2030 target"></div>
+          <p class="chart-narrative">Australia recorded 1,310 deaths in 2025, above the 2018–2020 baseline average of 1,139 and more than twice the 2030 target of about 570. This chart measures the size of the remaining gap; it does not predict the 2030 result.</p>
+          <p class="source-note">Source: NRSS target file and BITRE ARDD.</p>
+        </article></div>
       </div>
     </section>
 
-    <section class="story-section" aria-labelledby="regions-heading">
-      <div class="section-heading">
-        <p class="section-number">02</p>
-        <div>
-          <h2 id="regions-heading">Risk across Australia</h2>
-          <p>Move from the national picture to states, territories, and regional communities.</p>
-        </div>
+    <section class="story-section" aria-labelledby="place-heading">
+      <div class="section-heading"><p class="section-number">02</p><div><h2 id="place-heading">Risk depends on where the road runs</h2><p>Population-adjusted state rates, regional totals, and age patterns reveal geographic differences.</p></div></div>
+      <div class="narrative-block">
+        <p>The national average conceals a wide geographic gap. In 2025, the Northern Territory recorded 14.2 deaths per 100,000 people, compared with 1.8 in the Australian Capital Territory. Using rates here matters because state populations differ greatly.</p>
+        <p>At SA4 level, the map switches to totals: Wide Bay and Western Australia’s Wheat Belt recorded the largest 2021–2025 counts in this dataset. These circles show where deaths accumulated, not where an individual faced the highest risk. The age distributions below add another layer by showing how the profile changes with remoteness.</p>
       </div>
-
-      <div class="pure-g chart-row">
-        <div class="pure-u-1">
-          <article class="chart-card placeholder map-placeholder">
-            <p class="chart-label">Map 1 · Chart 4</p>
-            <h3>Fatality rate by state and territory</h3>
-            <p>Suggested idiom: choropleth map using the ABS states and territories GeoJSON.</p>
-          </article>
-        </div>
+      <div class="pure-g chart-row map-row">
+        <div class="pure-u-1 pure-u-md-1-2"><article class="chart-card">
+          <h3>Fatality rate by state and territory</h3>
+          <div id="chart-4" class="vis-container vis-compact" aria-label="2025 state and territory fatality-rate map"></div>
+          <p class="chart-narrative">In 2025, the Northern Territory had the highest rate at 14.2 deaths per 100,000 people, while the Australian Capital Territory had the lowest at 1.8. Rates make differently sized populations more comparable.</p>
+          <p class="reading-tip"><strong>How to read:</strong> Darker teal means a higher fatality rate, not a larger number of deaths.</p>
+          <p class="source-note">Source: BITRE ARDD; ABS population; ABS boundaries.</p>
+        </article></div>
+        <div class="pure-u-1 pure-u-md-1-2"><article class="chart-card">
+          <h3>Fatalities by SA4 region</h3>
+          <div id="chart-5" class="vis-container vis-compact" aria-label="SA4 proportional symbol map"></div>
+          <p class="chart-narrative">Wide Bay recorded 209 deaths and Western Australia's Wheat Belt recorded 205 from 2021–2025, the two largest SA4 totals in the data. Coastal clusters partly reflect where people and road travel are concentrated.</p>
+          <p class="reading-tip"><strong>How to read:</strong> Circle area represents fatalities, so compare the area rather than the radius. Overlaps indicate nearby SA4 regions; these are totals, not population-adjusted rates.</p>
+          <p class="source-note">Source: BITRE ARDD; ABS SA4 boundaries.</p>
+        </article></div>
       </div>
-
       <div class="pure-g chart-row">
-        <div class="pure-u-1 pure-u-md-1-2">
-          <article class="chart-card placeholder map-placeholder">
-            <p class="chart-label">Map 2 · Chart 5</p>
-            <h3>Fatal crashes by location</h3>
-            <p>Suggested idiom: symbol map using fatal-crash locations.</p>
-          </article>
-        </div>
-        <div class="pure-u-1 pure-u-md-1-2">
-          <article class="chart-card placeholder">
-            <p class="chart-label">Chart 6</p>
-            <h3>Change by state and territory</h3>
-            <p>Suggested idiom: line chart or slope chart.</p>
-          </article>
-        </div>
+        <div class="pure-u-1"><article class="chart-card">
+          <h3>Age profile by remoteness</h3>
+          <div id="chart-6" class="vis-container vis-wide" aria-label="Age distributions by remoteness area"></div>
+          <p class="chart-narrative">The peaks and spreads change across remoteness categories, showing that the age profile of fatalities is not identical everywhere. This supports treating remoteness as part of the road-safety context rather than assuming one national age pattern.</p>
+          <p class="reading-tip"><strong>How to read:</strong> Compare where each coloured ridge peaks and how widely it spreads. Ridge height represents density—the shape of the age distribution—not the number of deaths.</p>
+          <p class="source-note">Source: BITRE ARDD, 2021–2025.</p>
+        </article></div>
+      </div>
+    </section>
+
+    <section class="story-section" aria-labelledby="risk-heading">
+      <div class="section-heading"><p class="section-number">03</p><div><h2 id="risk-heading">Time, road users, and crash context</h2><p>Three views of the recorded conditions associated with fatalities from 2021–2025.</p></div></div>
+      <div class="narrative-block">
+        <p>Fatalities are not evenly distributed across the week. The largest day–hour cell is Friday at 3 pm, with 70 recorded deaths from 2021–2025, while several other peaks occur on Thursday, Friday, and Sunday afternoons.</p>
+        <p>Drivers form the largest road-user group in the data, and drivers aged 40–64 form the largest road-user–age cell. The alluvial view then follows these records through crash type and speed band, showing that road-user risk is connected to the context in which a crash occurs.</p>
+      </div>
+      <div class="pure-g chart-row three-column-row">
+        <div class="pure-u-1 pure-u-md-1-3"><article class="chart-card">
+          <h3>Day and hour of fatalities</h3>
+          <div id="chart-7" class="vis-container vis-compact" aria-label="Day by hour radial fatality heatmap"></div>
+          <p class="chart-narrative">Friday at 3 pm is the largest day–hour cell, with 70 recorded deaths from 2021–2025. Several other high cells appear on Thursday, Friday, and Sunday afternoons rather than forming one single daily peak.</p>
+          <p class="reading-tip"><strong>How to read:</strong> Rings run from Monday at the centre to Sunday outside; hours run clockwise from midnight. Darker cells represent more fatalities.</p>
+          <p class="source-note">Source: BITRE ARDD, 2021–2025.</p>
+        </article></div>
+        <div class="pure-u-1 pure-u-md-1-3"><article class="chart-card">
+          <h3>Road user and age group</h3>
+          <div id="chart-8" class="vis-container vis-compact" aria-label="Road user by age group mosaic chart"></div>
+          <p class="chart-narrative">Drivers are the largest road-user group, and drivers aged 40–64 form the largest individual cell with 908 deaths. The visible 65+ pedestrian segment also shows why the age mix within a road-user group matters.</p>
+          <p class="reading-tip"><strong>How to read:</strong> Column width shows each road-user group's share; segment height shows the age mix within that group. Rectangle area represents the combined share.</p>
+          <p class="source-note">Source: BITRE ARDD, 2021–2025.</p>
+        </article></div>
+        <div class="pure-u-1 pure-u-md-1-3"><article class="chart-card">
+          <h3>Road user → crash type → speed</h3>
+          <div id="chart-9" class="vis-container vis-compact" aria-label="Alluvial chart of road user crash type and speed band"></div>
+          <p class="chart-narrative">The largest flow is from drivers to single-vehicle crashes, representing 1,549 deaths. The 90–100 km/h band is also prominent for both single- and multiple-vehicle crashes among records with known values.</p>
+          <p class="reading-tip"><strong>How to read:</strong> Follow each ribbon from road user to crash type and then speed band. Ribbon width represents fatalities; unknown road user, crash type, or speed values are excluded.</p>
+          <p class="source-note">Source: BITRE ARDD, 2021–2025.</p>
+        </article></div>
       </div>
     </section>
 
     <section class="story-section" aria-labelledby="world-heading">
-      <div class="section-heading">
-        <p class="section-number">03</p>
-        <div>
-          <h2 id="world-heading">Australia in the world</h2>
-          <p>Compare outcomes using rates, not only total deaths.</p>
-        </div>
+      <div class="section-heading"><p class="section-number">04</p><div><h2 id="world-heading">Australia in international context</h2><p>Compare reported outcomes with vehicle ownership and peer-country rankings.</p></div></div>
+      <div class="narrative-block">
+        <p>The WHO indicators place Australia at 4.5 road deaths per 100,000 people, despite a high level of registered vehicle ownership. This suggests that vehicle numbers alone do not determine road-safety outcomes; road design, travel patterns, enforcement, and policy also matter.</p>
+        <p>Among the nine selected peer countries, Australia ranked sixth in 2023 when first place represents the lowest fatality rate. Country reporting years and definitions can vary, so the comparison is best read as international context rather than a perfect league table.</p>
       </div>
+      <div class="pure-g chart-row"><div class="pure-u-1"><article class="chart-card">
+        <h3>Road fatality rates worldwide</h3>
+        <div id="chart-10" class="vis-container vis-world" aria-label="Worldwide road fatality-rate dot map"></div>
+        <p class="chart-narrative">Australia's reported rate of 4.5 deaths per 100,000 people sits toward the lower end of the global distribution while its registered vehicle ownership is high. Across countries, the map does not show a simple one-factor relationship between vehicle numbers and road deaths.</p>
+        <p class="reading-tip"><strong>How to read:</strong> Each fixed-size dot represents a country and colour shows its fatality rate. Hover over a dot to see the country and its reported registered vehicles per 100,000 people.</p>
+        <p class="source-note">Source: WHO GSRRS 2023 indicators; Natural Earth World Atlas. ISO3 codes are joined through a numeric-ID crosswalk.</p>
+      </article></div></div>
+      <div class="pure-g chart-row"><div class="pure-u-1"><article class="chart-card">
+        <h3>Australia among selected peer countries</h3>
+        <div id="chart-11" class="vis-container vis-wide" aria-label="Peer-country road fatality-rate rankings"></div>
+        <p class="chart-narrative">Australia ranked sixth of the nine selected peers in 2023. Norway, Sweden, the United Kingdom, Japan, and Germany recorded lower rates, showing that Australia's long-term improvement still leaves room for further gains.</p>
+        <p class="reading-tip"><strong>How to read:</strong> Rank 1 is the lowest fatality rate. Follow each country's colour across time; a rising line means its relative position worsened even if its own rate may have fallen.</p>
+        <p class="source-note">Source: OECD/ITF annual road-safety data and OECD peer population, 1990–2023.</p>
+      </article></div></div>
+    </section>
 
-      <div class="pure-g chart-row">
-        <div class="pure-u-1">
-          <article class="chart-card placeholder map-placeholder">
-            <p class="chart-label">Map 3 · Chart 7</p>
-            <h3>Road fatality rates by country</h3>
-            <p>Suggested idiom: world choropleth with an equal-area projection.</p>
-          </article>
-        </div>
-      </div>
-
-      <div class="pure-g chart-row">
-        <div class="pure-u-1 pure-u-md-1-2">
-          <article class="chart-card placeholder">
-            <p class="chart-label">Chart 8</p>
-            <h3>Australia and selected peer countries</h3>
-            <p>Suggested idiom: multi-line chart with Australia highlighted.</p>
-          </article>
-        </div>
-        <div class="pure-u-1 pure-u-md-1-2">
-          <article class="chart-card placeholder">
-            <p class="chart-label">Chart 9</p>
-            <h3>Population, vehicles, and road deaths</h3>
-            <p>Suggested idiom: scatterplot with a tooltip.</p>
-          </article>
-        </div>
+    <section class="story-section conclusion-section" aria-labelledby="conclusion-heading">
+      <div class="section-heading"><p class="section-number">05</p><div><h2 id="conclusion-heading">Conclusion: progress needs a more targeted next step</h2><p>The long decline is real, but it does not guarantee that Australia will reach the 2030 target.</p></div></div>
+      <div class="conclusion-panel">
+        <p>Australia’s road-safety story is one of major long-term improvement followed by slower recent progress. A national total of 1,310 deaths in 2025 remains far above the 2030 target, so repeating the pace of the last few years will not be enough.</p>
+        <p>The evidence points toward targeted action rather than a single national solution: compare places using population-adjusted rates, investigate regional clusters without confusing totals with risk, and focus prevention on the road users, times, and crash contexts where deaths concentrate.</p>
+        <p>International comparisons show that lower fatality rates are achievable even in highly motorised countries. The road ahead therefore depends on combining safer infrastructure, safer speeds, safer vehicles, and safer behaviour—and measuring progress with complete, comparable data.</p>
       </div>
     </section>
 
-    <section class="story-section" aria-labelledby="factors-heading">
-      <div class="section-heading">
-        <p class="section-number">04</p>
-        <div>
-          <h2 id="factors-heading">What may be associated with safer roads?</h2>
-          <p>Finish with a careful comparison of transport and road-safety characteristics.</p>
-        </div>
-      </div>
-
-      <div class="pure-g chart-row">
-        <div class="pure-u-1">
-          <article class="chart-card placeholder">
-            <p class="chart-label">Chart 10</p>
-            <h3>Road-safety characteristics and fatality rates</h3>
-            <p>Suggested idiom: an annotated scatterplot or small set of aligned bars.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <footer class="footer">
-      <p><strong>Author:</strong> [Your name] · <strong>Date:</strong> October 2026</p>
-      <p><strong>Data:</strong> Add the final data-source names and URLs here.</p>
-    </footer>
   </main>
-
-  <script src="js/vega-lite-vis.js"></script>
+  <script src="js/vega-lite-vis.js?v=20261012-5"></script>
 </body>
-
 </html>

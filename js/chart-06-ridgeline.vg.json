@@ -1,0 +1,43 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {"url": "data/remoteness-age-2021-2025.csv"},
+  "transform": [{"density": "age", "groupby": ["remoteness"], "extent": [0, 100], "steps": 80}],
+  "facet": {
+    "row": {
+      "field": "remoteness",
+      "type": "nominal",
+      "title": null,
+      "sort": ["Major Cities of Australia","Inner Regional Australia","Outer Regional Australia","Remote Australia","Very Remote Australia"],
+      "header": {"labelAngle": 0, "labelAlign": "left", "labelLimit": 190, "labelFontSize": 10}
+    }
+  },
+  "spec": {
+    "width": 720,
+    "height": 48,
+    "mark": {"type": "area", "interpolate": "monotone", "fillOpacity": 0.62, "strokeWidth": 1.2},
+    "encoding": {
+      "x": {"field": "value", "type": "quantitative", "title": "Age", "scale": {"domain": [0, 100]}, "axis": {"tickCount": 6}},
+      "y": {"field": "density", "type": "quantitative", "title": null, "axis": null},
+      "color": {
+        "field": "remoteness", "type": "nominal", "title": "Remoteness",
+        "sort": ["Major Cities of Australia","Inner Regional Australia","Outer Regional Australia","Remote Australia","Very Remote Australia"],
+        "scale": {
+          "domain": ["Major Cities of Australia","Inner Regional Australia","Outer Regional Australia","Remote Australia","Very Remote Australia"],
+          "range": ["#0072b2","#56b4e9","#009e73","#e69f00","#d55e00"]
+        },
+        "legend": {"orient": "bottom", "direction": "horizontal", "columns": 3, "titleLimit": 160, "labelLimit": 190}
+      },
+      "tooltip": [
+        {"field": "remoteness", "type": "nominal", "title": "Remoteness"},
+        {"field": "value", "type": "quantitative", "title": "Age", "format": ".0f"}
+      ]
+    }
+  },
+  "resolve": {"scale": {"color": "shared"}},
+  "config": {
+    "view": {"stroke": null},
+    "facet": {"spacing": 3},
+    "axis": {"grid": false, "labelColor": "#53636d", "titleColor": "#53636d"},
+    "legend": {"labelColor": "#53636d", "titleColor": "#53636d"}
+  }
+}

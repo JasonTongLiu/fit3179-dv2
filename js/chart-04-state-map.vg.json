@@ -1,0 +1,36 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "width": 300,
+  "height": 250,
+  "padding": {"left": 0, "right": 0, "top": 5, "bottom": 45},
+  "autosize": {"type": "none", "contains": "padding"},
+  "data": [
+    {"name": "rates", "url": "data/state-rates-2025.csv", "format": {"type": "csv", "parse": {"fatality_rate": "number", "deaths": "number", "population": "number"}}},
+    {
+      "name": "states",
+      "url": "data/australia-state-paths.json",
+      "transform": [{"type": "lookup", "from": "rates", "key": "state_name_2021", "fields": ["state_name_2021"], "values": ["state","deaths","population","fatality_rate"]}]
+    }
+  ],
+  "scales": [
+    {"name": "colour", "type": "linear", "domain": {"data": "states", "field": "fatality_rate"}, "range": {"scheme": "tealblues"}, "nice": true, "zero": false}
+  ],
+  "legends": [
+    {"fill": "colour", "title": "Deaths per 100k", "orient": "bottom", "direction": "horizontal", "gradientLength": 150}
+  ],
+  "marks": [
+    {
+      "type": "path",
+      "from": {"data": "states"},
+      "encode": {
+        "enter": {
+          "path": {"field": "path"},
+          "fill": {"scale": "colour", "field": "fatality_rate"},
+          "stroke": {"value": "white"},
+          "strokeWidth": {"value": 0.7},
+          "tooltip": {"signal": "{'State / territory': datum.state_name_2021, 'Deaths': datum.deaths, 'Population': datum.population, 'Deaths per 100k': format(datum.fatality_rate, '.2f')}"}
+        }
+      }
+    }
+  ]
+}

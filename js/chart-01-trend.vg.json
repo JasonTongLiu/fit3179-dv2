@@ -1,0 +1,93 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {"url": "data/fatalities-trend.csv"},
+  "width": "container",
+  "height": 330,
+  "encoding": {
+    "x": {
+      "field": "year", "type": "quantitative", "title": "Year",
+      "scale": {"domain": [1989, 2026]},
+      "axis": {"format": "d", "tickCount": 8}
+    }
+  },
+  "layer": [
+    {
+      "layer": [
+        {
+          "transform": [
+            {"filter": "datum.year <= 2025"},
+            {"calculate": "'Fatalities'", "as": "metric"}
+          ],
+          "mark": {"type": "line", "strokeWidth": 3},
+          "encoding": {
+            "y": {
+              "field": "deaths", "type": "quantitative", "title": "Fatalities",
+              "scale": {"zero": false},
+              "axis": {"orient": "left", "titleColor": "#17324d", "labelColor": "#17324d"}
+            },
+            "color": {
+              "field": "metric", "type": "nominal", "title": null, "sort": ["Fatalities", "Fatality rate"],
+              "scale": {"domain": ["Fatalities", "Fatality rate"], "range": ["#17324d", "#18786f"]},
+              "legend": {"orient": "bottom", "direction": "horizontal"}
+            },
+            "tooltip": [
+              {"field": "year", "type": "quantitative", "title": "Year", "format": "d"},
+              {"field": "deaths", "type": "quantitative", "title": "Fatalities", "format": ","},
+              {"field": "period_status", "type": "nominal", "title": "Coverage"}
+            ]
+          }
+        },
+        {
+          "transform": [{"filter": "datum.year == 2026"}],
+          "mark": {"type": "point", "filled": true, "size": 115, "color": "#b7432e", "stroke": "white", "strokeWidth": 1.5},
+          "encoding": {
+            "y": {"field": "deaths", "type": "quantitative", "scale": {"zero": false}},
+            "tooltip": [
+              {"field": "year", "type": "quantitative", "title": "Year", "format": "d"},
+              {"field": "deaths", "type": "quantitative", "title": "Jan–Jul fatalities", "format": ","},
+              {"field": "period_status", "type": "nominal", "title": "Coverage"}
+            ]
+          }
+        },
+        {
+          "transform": [{"filter": "datum.year == 2026"}],
+          "mark": {"type": "text", "align": "right", "dx": -8, "dy": -12, "fontSize": 11, "fontWeight": "bold", "color": "#b7432e"},
+          "encoding": {
+            "y": {"field": "deaths", "type": "quantitative", "scale": {"zero": false}},
+            "text": {"value": "Jan–Jul 2026"}
+          }
+        }
+      ]
+    },
+    {
+      "transform": [
+        {"filter": "datum.year <= 2025"},
+        {"calculate": "'Fatality rate'", "as": "metric"}
+      ],
+      "mark": {"type": "line", "strokeWidth": 3, "point": {"filled": true, "size": 18}},
+      "encoding": {
+        "y": {
+          "field": "fatality_rate", "type": "quantitative", "title": "Deaths per 100,000",
+          "scale": {"zero": false},
+          "axis": {"orient": "right", "titleColor": "#18786f", "labelColor": "#18786f", "grid": false}
+        },
+        "color": {
+          "field": "metric", "type": "nominal", "title": null, "sort": ["Fatalities", "Fatality rate"],
+          "scale": {"domain": ["Fatalities", "Fatality rate"], "range": ["#17324d", "#18786f"]},
+          "legend": {"orient": "bottom", "direction": "horizontal"}
+        },
+        "tooltip": [
+          {"field": "year", "type": "quantitative", "title": "Year", "format": "d"},
+          {"field": "fatality_rate", "type": "quantitative", "title": "Deaths per 100,000", "format": ".2f"},
+          {"field": "population", "type": "quantitative", "title": "Population", "format": ","}
+        ]
+      }
+    }
+  ],
+  "resolve": {"scale": {"y": "independent"}},
+  "config": {
+    "view": {"stroke": null},
+    "axis": {"gridColor": "#d9e3e4", "labelColor": "#53636d", "titleColor": "#53636d"},
+    "legend": {"labelColor": "#53636d"}
+  }
+}

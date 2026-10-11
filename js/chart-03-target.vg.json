@@ -1,0 +1,30 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {"url": "data/target-progress.csv"},
+  "width": "container",
+  "height": 245,
+  "layer": [
+    {
+      "mark": {"type": "bar", "cornerRadiusEnd": 3},
+      "encoding": {
+        "y": {"field": "label", "type": "nominal", "title": null, "sort": {"field": "order", "order": "ascending"}, "axis": {"labelLimit": 125}},
+        "x": {"field": "deaths", "type": "quantitative", "title": "Road deaths", "scale": {"domain": [0, 1400]}},
+        "color": {"field": "label", "type": "nominal", "legend": null, "scale": {"domain": ["2018–2020 baseline","2025 observed","2030 target"], "range": ["#93a5ad","#17324d","#c84c33"]}},
+        "tooltip": [
+          {"field": "label", "type": "nominal", "title": "Measure"},
+          {"field": "deaths", "type": "quantitative", "title": "Road deaths", "format": ",.0f"}
+        ]
+      }
+    },
+    {
+      "mark": {"type": "text", "align": "left", "dx": 5, "fontWeight": "bold", "fontSize": 11},
+      "encoding": {
+        "y": {"field": "label", "type": "nominal", "sort": {"field": "order", "order": "ascending"}},
+        "x": {"field": "deaths", "type": "quantitative"},
+        "text": {"field": "deaths", "type": "quantitative", "format": ",.0f"},
+        "color": {"value": "#17252f"}
+      }
+    }
+  ],
+  "config": {"view": {"stroke": null}, "axis": {"gridColor": "#d9e3e4", "labelColor": "#53636d", "titleColor": "#53636d"}}
+}

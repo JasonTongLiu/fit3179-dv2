@@ -1,0 +1,20 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {"url": "data/day-hour-fatalities.csv"},
+  "width": 260,
+  "height": 260,
+  "mark": {"type": "arc", "stroke": "white", "strokeWidth": 0.35},
+  "encoding": {
+    "theta": {"field": "theta", "type": "quantitative", "scale": null},
+    "theta2": {"field": "theta2"},
+    "radius": {"field": "radius", "type": "quantitative", "scale": null},
+    "radius2": {"field": "radius2"},
+    "color": {"field": "deaths", "type": "quantitative", "title": "Fatalities", "scale": {"scheme": "blues"}},
+    "tooltip": [
+      {"field": "day", "type": "nominal", "title": "Day"},
+      {"field": "hour", "type": "quantitative", "title": "Hour", "format": "02d"},
+      {"field": "deaths", "type": "quantitative", "title": "Fatalities", "format": ","}
+    ]
+  },
+  "config": {"view": {"stroke": null}, "legend": {"orient": "bottom", "gradientLength": 130}}
+}

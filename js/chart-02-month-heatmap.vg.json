@@ -1,0 +1,19 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {"url": "data/month-year-fatalities.csv"},
+  "width": "container",
+  "height": 345,
+  "mark": {"type": "rect", "stroke": "white", "strokeWidth": 0.45},
+  "encoding": {
+    "x": {"field": "month", "type": "ordinal", "title": null, "sort": ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"], "axis": {"labelAngle": 0}},
+    "y": {"field": "year", "type": "ordinal", "title": "Year", "sort": "descending", "axis": {"labelExpr": "datum.label % 5 == 0 || datum.label == 1989 || datum.label == 2026 ? datum.label : ''"}},
+    "color": {"field": "fatalities", "type": "quantitative", "title": "Fatalities", "scale": {"scheme": "blues"}},
+    "tooltip": [
+      {"field": "year", "type": "ordinal", "title": "Year"},
+      {"field": "month_name", "type": "nominal", "title": "Month"},
+      {"field": "fatalities", "type": "quantitative", "title": "Fatalities", "format": ","},
+      {"field": "period_status", "type": "nominal", "title": "Coverage"}
+    ]
+  },
+  "config": {"view": {"stroke": null}, "axis": {"domain": false, "tickSize": 0, "labelColor": "#53636d"}}
+}

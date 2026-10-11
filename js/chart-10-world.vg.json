@@ -1,0 +1,31 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 380,
+  "projection": {"type": "equalEarth"},
+  "layer": [
+    {
+      "data": {"url": "data/world-atlas-countries-110m.json", "format": {"type": "topojson", "feature": "countries"}},
+      "mark": {"type": "geoshape", "fill": "#e4eceb", "stroke": "white", "strokeWidth": 0.35}
+    },
+    {
+      "data": {"url": "data/who-bivariate.csv"},
+      "mark": {"type": "circle", "size": 48, "opacity": 0.8, "stroke": "white", "strokeWidth": 0.5},
+      "encoding": {
+        "longitude": {"field": "longitude", "type": "quantitative"},
+        "latitude": {"field": "latitude", "type": "quantitative"},
+        "color": {
+          "field": "fatality_rate", "type": "quantitative", "title": "Fatalities per 100,000",
+          "scale": {"scheme": "tealblues"},
+          "legend": {"orient": "bottom", "direction": "horizontal", "gradientLength": 230}
+        },
+        "tooltip": [
+          {"field": "country", "type": "nominal", "title": "Country"},
+          {"field": "fatality_rate", "type": "quantitative", "title": "Fatalities per 100k", "format": ".1f"},
+          {"field": "vehicles_per_100k", "type": "quantitative", "title": "Registered vehicles per 100k", "format": ",.0f"}
+        ]
+      }
+    }
+  ],
+  "config": {"view": {"stroke": null}, "legend": {"labelColor": "#53636d", "titleColor": "#53636d"}}
+}

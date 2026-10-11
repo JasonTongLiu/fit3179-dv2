@@ -1,0 +1,61 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "width": 300,
+  "height": 310,
+  "padding": 2,
+  "autosize": {"type": "none", "contains": "padding"},
+  "data": [
+    {"name": "source", "url": "data/alluvial.json"},
+    {"name": "links", "source": "source", "transform": [{"type": "filter", "expr": "datum.kind === 'link'"}]},
+    {"name": "nodes", "source": "source", "transform": [{"type": "filter", "expr": "datum.kind === 'node'"}]}
+  ],
+  "scales": [
+    {"name": "stageColor", "type": "ordinal", "domain": [0,1,2], "range": ["#17324d","#18786f","#c84c33"]}
+  ],
+  "marks": [
+    {
+      "type": "path",
+      "from": {"data": "links"},
+      "encode": {
+        "enter": {
+          "path": {"field": "path"},
+          "fill": {"value": null},
+          "stroke": {"value": "#718d98"},
+          "strokeOpacity": {"value": 0.34},
+          "strokeWidth": {"field": "stroke_width"},
+          "tooltip": {"signal": "{'From': datum.source, 'To': datum.target, 'Fatalities': datum.deaths}"}
+        }
+      }
+    },
+    {
+      "type": "rect",
+      "from": {"data": "nodes"},
+      "encode": {
+        "enter": {
+          "x": {"field": "x0"}, "x2": {"field": "x1"},
+          "y": {"field": "y0"}, "y2": {"field": "y1"},
+          "fill": {"scale": "stageColor", "field": "stage"},
+          "tooltip": {"signal": "{'Category': datum.category, 'Fatalities': datum.deaths}"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {"data": "nodes"},
+      "encode": {
+        "enter": {
+          "x": {"signal": "datum.stage === 2 ? datum.x0 - 3 : datum.x1 + 3"},
+          "y": {"field": "label_y"},
+          "text": {"field": "category"},
+          "align": {"signal": "datum.stage === 2 ? 'right' : 'left'"},
+          "baseline": {"value": "middle"},
+          "fontSize": {"value": 8},
+          "fontWeight": {"value": "bold"},
+          "fill": {"value": "#17252f"},
+          "limit": {"value": 115},
+          "opacity": {"signal": "datum.y1 - datum.y0 > 3 ? 1 : 0"}
+        }
+      }
+    }
+  ]
+}

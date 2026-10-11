@@ -1,0 +1,39 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "width": 300,
+  "height": 250,
+  "padding": {"left": 0, "right": 0, "top": 5, "bottom": 5},
+  "autosize": {"type": "none", "contains": "padding"},
+  "data": [
+    {"name": "areas", "url": "data/australia-sa4-paths.json"},
+    {"name": "fatalities", "url": "data/sa4-fatalities-2021-2025.csv", "format": {"type": "csv", "parse": {"deaths": "number", "longitude": "number", "latitude": "number"}}}
+  ],
+  "scales": [
+    {"name": "longitude", "type": "linear", "domain": [109,157], "range": [0,300]},
+    {"name": "latitude", "type": "linear", "domain": [-47,-7], "range": [250,0]},
+    {"name": "size", "type": "sqrt", "domain": {"data": "fatalities", "field": "deaths"}, "range": [10,650]}
+  ],
+  "marks": [
+    {
+      "type": "path",
+      "from": {"data": "areas"},
+      "encode": {"enter": {"path": {"field": "path"}, "fill": {"value": "#e4eceb"}, "stroke": {"value": "white"}, "strokeWidth": {"value": 0.35}}}
+    },
+    {
+      "type": "symbol",
+      "from": {"data": "fatalities"},
+      "encode": {
+        "enter": {
+          "x": {"scale": "longitude", "field": "longitude"},
+          "y": {"scale": "latitude", "field": "latitude"},
+          "size": {"scale": "size", "field": "deaths"},
+          "fill": {"value": "#17324d"},
+          "fillOpacity": {"value": 0.72},
+          "stroke": {"value": "white"},
+          "strokeWidth": {"value": 0.6},
+          "tooltip": {"signal": "{'SA4': datum.sa4_name_2021, 'Fatalities': datum.deaths}"}
+        }
+      }
+    }
+  ]
+}

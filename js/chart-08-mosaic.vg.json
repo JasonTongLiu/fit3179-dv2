@@ -1,0 +1,21 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {"url": "data/road-user-age-mosaic.csv"},
+  "width": "container",
+  "height": 270,
+  "mark": {"type": "rect", "stroke": "white", "strokeWidth": 1},
+  "encoding": {
+    "x": {"field": "x0", "type": "quantitative", "title": "Share of all recorded fatalities", "scale": {"domain": [0, 1]}, "axis": {"format": "%"}},
+    "x2": {"field": "x1"},
+    "y": {"field": "y0", "type": "quantitative", "title": "Age composition within road-user group", "scale": {"domain": [0, 1]}, "axis": {"format": "%"}},
+    "y2": {"field": "y1"},
+    "color": {"field": "age_group", "type": "nominal", "title": "Age group", "sort": ["0–17","18–24","25–39","40–64","65+"], "scale": {"domain": ["0–17","18–24","25–39","40–64","65+"], "range": ["#e69f00","#d55e00","#cc79a7","#56b4e9","#0072b2"]}},
+    "tooltip": [
+      {"field": "road_user", "type": "nominal", "title": "Road user"},
+      {"field": "age_group", "type": "nominal", "title": "Age group"},
+      {"field": "deaths", "type": "quantitative", "title": "Fatalities", "format": ","},
+      {"field": "share_percent", "type": "quantitative", "title": "Share of all fatalities", "format": ".1f"}
+    ]
+  },
+  "config": {"view": {"stroke": null}, "legend": {"orient": "bottom", "columns": 3}, "axis": {"labelColor": "#53636d", "titleColor": "#53636d"}}
+}

@@ -1,0 +1,67 @@
+{
+  "sources": {
+    "bitre_fatalities_jul2026.xlsx": {
+      "sha256": "76a39c282ffd923ce1130504bc7cbb3998560955d5c58d5dcb7ffc7ed105bace",
+      "bytes": 5986695
+    },
+    "ABS-population-states-territories-dec2025.xlsx": {
+      "sha256": "8fe4b1a1fc7d228e4e086214c5ecf8d5a8f3f1de803e107cb02bae0e1e5cc34f",
+      "bytes": 91015
+    },
+    "nrss-2030-road-death-target.csv": {
+      "sha256": "1f9e2453cfa920c38856631736cf9aed3eac1aa911e4eb7db92f63b5faa08cc9",
+      "bytes": 849
+    },
+    "abs-states-territories-2021-generalised.geojson": {
+      "sha256": "82f9917de0a1d52896b5c44df3e9a3cce6bb7f73d82b7ea6554a5cf1dacc11a3",
+      "bytes": 808121
+    },
+    "abs-sa4-2021-generalised.geojson": {
+      "sha256": "a28f0c02653ea3ae475ba6b7ac44d9ba675bea101e77727757f3e2347a967c32",
+      "bytes": 993197
+    },
+    "who-gsrrs23-indicators.xlsx": {
+      "sha256": "8248dfe6f90875f19d3a7c887c6e5bd3a47e272fd25004692baa69a3dfc778b7",
+      "bytes": 170222
+    },
+    "world-atlas-countries-110m.json": {
+      "sha256": "2516c915867c7baf18ddec727aec46c315541a07cfb3d79a6559b05d5e94eee8",
+      "bytes": 107761
+    },
+    "oecd-itf-annual-road-safety.csv": {
+      "sha256": "0ca1a08d15996fb5baf0a506113da80283bdf9202234845e9ba4eb5f0f02cbb6",
+      "bytes": 1178449
+    },
+    "oecd-peer-population-1990-2023.csv": {
+      "sha256": "2e6f8f57c3b54d03fb699ca67e00cb0dde1f8b4d37ff576298cb52cb4e29c6f9",
+      "bytes": 135819
+    }
+  },
+  "ardd_records": 58951,
+  "ardd_records_2021_2025": 6164,
+  "ardd_2026_period": "January–July only",
+  "nrss_baseline_deaths": 1139.333333,
+  "nrss_target_deaths": 569.666667,
+  "who_rows_with_both_indicators": 135,
+  "who_rows_joined_to_world_atlas": 123,
+  "who_unmatched_iso3": [],
+  "fatality_rate_tertiles": [
+    9.1,
+    16.366666666666664
+  ],
+  "vehicles_per_100k_tertiles": [
+    15622.497706896198,
+    47667.96147775392
+  ],
+  "peer_countries": [
+    "AUS",
+    "CAN",
+    "DEU",
+    "GBR",
+    "JPN",
+    "NOR",
+    "NZL",
+    "SWE",
+    "USA"
+  ]
+}

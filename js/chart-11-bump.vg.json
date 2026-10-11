@@ -1,0 +1,32 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {"url": "data/peer-country-ranks.csv"},
+  "width": "container",
+  "height": 380,
+  "mark": {"type": "line", "point": {"filled": true, "size": 24}, "opacity": 0.88},
+  "encoding": {
+    "x": {"field": "year", "type": "quantitative", "title": "Year", "scale": {"domain": [1990, 2023]}, "axis": {"format": "d", "tickCount": 9}},
+    "y": {"field": "rank", "type": "quantitative", "title": "Rank (1 = lowest fatality rate)", "scale": {"domain": [9, 1]}, "axis": {"tickMinStep": 1}},
+    "detail": {"field": "iso3"},
+    "color": {
+      "field": "country", "type": "nominal", "title": null,
+      "scale": {
+        "domain": ["Australia","Canada","Germany","United Kingdom","Japan","Norway","New Zealand","Sweden","United States"],
+        "range": ["#d55e00","#0072b2","#009e73","#cc79a7","#e69f00","#56b4e9","#b87900","#6f4c9b","#4d4d4d"]
+      },
+      "legend": {"orient": "bottom", "direction": "horizontal", "columns": 5, "labelLimit": 130}
+    },
+    "size": {"condition": {"test": "datum.iso3 == 'AUS'", "value": 4}, "value": 1.7, "legend": null},
+    "tooltip": [
+      {"field": "country", "type": "nominal", "title": "Country"},
+      {"field": "year", "type": "quantitative", "title": "Year", "format": "d"},
+      {"field": "rank", "type": "quantitative", "title": "Rank"},
+      {"field": "fatality_rate", "type": "quantitative", "title": "Deaths per 100k", "format": ".2f"}
+    ]
+  },
+  "config": {
+    "view": {"stroke": null},
+    "axis": {"gridColor": "#d9e3e4", "labelColor": "#53636d", "titleColor": "#53636d"},
+    "legend": {"labelColor": "#53636d"}
+  }
+}
