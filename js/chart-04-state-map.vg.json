@@ -1,36 +1,135 @@
 {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
-  "width": 300,
+  "width": 500,
   "height": 250,
   "padding": {"left": 0, "right": 0, "top": 5, "bottom": 45},
   "autosize": {"type": "none", "contains": "padding"},
+  "signals": [
+    {
+      "name": "state_select",
+      "value": "All Australia",
+      "bind": {
+        "input": "select",
+        "name": "State / territory: ",
+        "options": ["All Australia", "New South Wales", "Victoria", "Queensland", "South Australia", "Western Australia", "Tasmania", "Northern Territory", "Australian Capital Territory"]
+      }
+    },
+    {"name": "map_target_zoom", "update": "state_select === 'All Australia' ? 1 : data('selected_view')[0].zoom"},
+    {"name": "map_target_x", "update": "state_select === 'All Australia' ? 0 : data('selected_view')[0].translate_x"},
+    {"name": "map_target_y", "update": "state_select === 'All Australia' ? 0 : data('selected_view')[0].translate_y"},
+    {"name": "map_zoom", "value": 1},
+    {"name": "map_x", "value": 0},
+    {"name": "map_y", "value": 0}
+  ],
   "data": [
+    {
+      "name": "state_views",
+      "values": [
+        {"state_name_2021":"New South Wales","zoom":3.3419,"translate_x":-650.37,"translate_y":-414.54},
+        {"state_name_2021":"Victoria","zoom":4.6868,"translate_x":-918.30,"translate_y":-740.77},
+        {"state_name_2021":"Queensland","zoom":1.8516,"translate_x":-275.57,"translate_y":-24.67},
+        {"state_name_2021":"South Australia","zoom":2.8379,"translate_x":-311.21,"translate_y":-318.94},
+        {"state_name_2021":"Western Australia","zoom":1.6005,"translate_x":29.17,"translate_y":-49.43},
+        {"state_name_2021":"Tasmania","zoom":11.2592,"translate_x":-2487.68,"translate_y":-2347.96},
+        {"state_name_2021":"Northern Territory","zoom":2.3007,"translate_x":-202.30,"translate_y":-41.19},
+        {"state_name_2021":"Australian Capital Territory","zoom":18,"translate_x":-4359.12,"translate_y":-3083.88}
+      ]
+    },
+    {"name": "selected_view", "source": "state_views", "transform": [{"type": "filter", "expr": "datum.state_name_2021 === state_select"}]},
     {"name": "rates", "url": "data/state-rates-2025.csv", "format": {"type": "csv", "parse": {"fatality_rate": "number", "deaths": "number", "population": "number"}}},
     {
-      "name": "states",
+      "name": "states_all",
       "url": "data/australia-state-paths.json",
       "transform": [{"type": "lookup", "from": "rates", "key": "state_name_2021", "fields": ["state_name_2021"], "values": ["state","deaths","population","fatality_rate"]}]
+    },
+    {"name": "states", "source": "states_all", "transform": [{"type": "filter", "expr": "state_select === 'All Australia' || datum.state_name_2021 === state_select"}]},
+    {
+      "name": "selected_rate",
+      "source": "rates",
+      "transform": [{"type": "filter", "expr": "datum.state_name_2021 === state_select"}]
     }
   ],
   "scales": [
-    {"name": "colour", "type": "linear", "domain": {"data": "states", "field": "fatality_rate"}, "range": {"scheme": "tealblues"}, "nice": true, "zero": false}
+    {"name": "colour", "type": "linear", "domain": {"data": "rates", "field": "fatality_rate"}, "range": {"scheme": "tealblues"}, "nice": true, "zero": false}
   ],
   "legends": [
-    {"fill": "colour", "title": "Deaths per 100k", "orient": "bottom", "direction": "horizontal", "gradientLength": 150}
+    {"fill": "colour", "title": "Deaths per 100k", "orient": "none", "legendX": 325, "legendY": 196, "direction": "horizontal", "gradientLength": 150}
   ],
   "marks": [
     {
-      "type": "path",
-      "from": {"data": "states"},
+      "type": "group",
+      "clip": true,
+      "encode": {"enter": {"x": {"value": 0}, "y": {"value": 0}, "width": {"value": 300}, "height": {"value": 250}}},
+      "marks": [{
+        "type": "path",
+        "from": {"data": "states"},
+        "encode": {
+          "enter": {
+            "path": {"field": "path"},
+            "tooltip": {"signal": "{'State / territory': datum.state_name_2021, 'Deaths': datum.deaths, 'Population': datum.population, 'Deaths per 100k': format(datum.fatality_rate, '.2f')}"}
+          },
+          "update": {
+            "x": {"signal": "map_x"},
+            "y": {"signal": "map_y"},
+            "scaleX": {"signal": "map_zoom"},
+            "scaleY": {"signal": "map_zoom"},
+            "fill": {"scale": "colour", "field": "fatality_rate"},
+            "fillOpacity": {"value": 1},
+            "stroke": {"signal": "state_select === 'All Australia' ? 'white' : '#d55e00'"},
+            "strokeWidth": {"signal": "state_select === 'All Australia' ? 0.7 : 2.4 / map_zoom"}
+          }
+        }
+      }]
+    },
+    {
+      "type": "rect",
       "encode": {
         "enter": {
-          "path": {"field": "path"},
-          "fill": {"scale": "colour", "field": "fatality_rate"},
-          "stroke": {"value": "white"},
-          "strokeWidth": {"value": 0.7},
-          "tooltip": {"signal": "{'State / territory': datum.state_name_2021, 'Deaths': datum.deaths, 'Population': datum.population, 'Deaths per 100k': format(datum.fatality_rate, '.2f')}"}
+          "x": {"value": 320}, "x2": {"value": 495},
+          "y": {"value": 10}, "y2": {"value": 184},
+          "fill": {"value": "#f4f7f5"},
+          "stroke": {"value": "#c8d6d3"},
+          "cornerRadius": {"value": 5}
+        },
+        "update": {
+          "opacity": {"signal": "state_select === 'All Australia' ? 0 : 1"}
         }
       }
+    },
+    {
+      "type": "text",
+      "from": {"data": "selected_rate"},
+      "encode": {"enter": {"x": {"value": 335}, "y": {"value": 36}, "fontSize": {"value": 15}, "fontWeight": {"value": 700}, "fill": {"value": "#17324d"}, "text": {"field": "state_name_2021"}}}
+    },
+    {
+      "type": "text",
+      "from": {"data": "selected_rate"},
+      "encode": {"enter": {"x": {"value": 335}, "y": {"value": 62}, "fontSize": {"value": 10}, "fill": {"value": "#53636d"}, "text": {"value": "Road deaths (2025)"}}}
+    },
+    {
+      "type": "text",
+      "from": {"data": "selected_rate"},
+      "encode": {"enter": {"x": {"value": 335}, "y": {"value": 82}, "fontSize": {"value": 15}, "fontWeight": {"value": 700}, "fill": {"value": "#17324d"}, "text": {"signal": "format(datum.deaths, ',')"}}}
+    },
+    {
+      "type": "text",
+      "from": {"data": "selected_rate"},
+      "encode": {"enter": {"x": {"value": 335}, "y": {"value": 105}, "fontSize": {"value": 10}, "fill": {"value": "#53636d"}, "text": {"value": "Population (Dec 2025)"}}}
+    },
+    {
+      "type": "text",
+      "from": {"data": "selected_rate"},
+      "encode": {"enter": {"x": {"value": 335}, "y": {"value": 125}, "fontSize": {"value": 15}, "fontWeight": {"value": 700}, "fill": {"value": "#17324d"}, "text": {"signal": "format(datum.population, ',')"}}}
+    },
+    {
+      "type": "text",
+      "from": {"data": "selected_rate"},
+      "encode": {"enter": {"x": {"value": 335}, "y": {"value": 148}, "fontSize": {"value": 10}, "fill": {"value": "#53636d"}, "text": {"value": "Deaths per 100,000"}}}
+    },
+    {
+      "type": "text",
+      "from": {"data": "selected_rate"},
+      "encode": {"enter": {"x": {"value": 335}, "y": {"value": 170}, "fontSize": {"value": 18}, "fontWeight": {"value": 700}, "fill": {"value": "#d55e00"}, "text": {"signal": "format(datum.fatality_rate, '.2f')"}}}
     }
   ]
 }

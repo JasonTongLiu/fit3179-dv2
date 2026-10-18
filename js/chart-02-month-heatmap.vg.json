@@ -3,16 +3,30 @@
   "data": {"url": "data/month-year-fatalities.csv"},
   "width": "container",
   "height": 345,
+  "params": [
+    {
+      "name": "Start_year",
+      "value": 1989,
+      "bind": {"input": "range", "min": 1989, "max": 2026, "step": 1, "name": "From year: "}
+    },
+    {
+      "name": "End_year",
+      "value": 2026,
+      "bind": {"input": "range", "min": 1989, "max": 2026, "step": 1, "name": "To year: "}
+    }
+  ],
+  "transform": [
+    {"filter": "datum.year >= min(Start_year, End_year) && datum.year <= max(Start_year, End_year)"}
+  ],
   "mark": {"type": "rect", "stroke": "white", "strokeWidth": 0.45},
   "encoding": {
     "x": {"field": "month", "type": "ordinal", "title": null, "sort": ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"], "axis": {"labelAngle": 0}},
     "y": {"field": "year", "type": "ordinal", "title": "Year", "sort": "descending", "axis": {"labelExpr": "datum.label % 5 == 0 || datum.label == 1989 || datum.label == 2026 ? datum.label : ''"}},
-    "color": {"field": "fatalities", "type": "quantitative", "title": "Fatalities", "scale": {"scheme": "blues"}},
+    "color": {"field": "fatalities", "type": "quantitative", "title": "Fatalities", "scale": {"scheme": "blues", "domain": [70, 307]}},
     "tooltip": [
       {"field": "year", "type": "ordinal", "title": "Year"},
       {"field": "month_name", "type": "nominal", "title": "Month"},
-      {"field": "fatalities", "type": "quantitative", "title": "Fatalities", "format": ","},
-      {"field": "period_status", "type": "nominal", "title": "Coverage"}
+      {"field": "fatalities", "type": "quantitative", "title": "Fatalities", "format": ","}
     ]
   },
   "config": {"view": {"stroke": null}, "axis": {"domain": false, "tickSize": 0, "labelColor": "#53636d"}}

@@ -2,7 +2,28 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": "container",
   "height": 380,
-  "projection": {"type": "equalEarth"},
+  "params": [
+    {
+      "name": "continent_view",
+      "value": "World",
+      "bind": {
+        "input": "select",
+        "name": "View continent: ",
+        "options": ["World","Africa","Asia","Europe","North America","South America","Oceania"]
+      }
+    },
+    {"name": "map_target_center_x", "expr": "continent_view == 'Africa' ? 20 : continent_view == 'Asia' ? 95 : continent_view == 'Europe' ? 15 : continent_view == 'North America' ? -100 : continent_view == 'South America' ? -60 : continent_view == 'Oceania' ? 145 : 0"},
+    {"name": "map_target_center_y", "expr": "continent_view == 'Africa' ? 3 : continent_view == 'Asia' ? 30 : continent_view == 'Europe' ? 52 : continent_view == 'North America' ? 40 : continent_view == 'South America' ? -20 : continent_view == 'Oceania' ? -25 : 0"},
+    {"name": "map_target_scale_factor", "expr": "continent_view == 'Africa' ? 1 / 1.45 : continent_view == 'Asia' ? 1 / 1.5 : continent_view == 'Europe' ? 1 / 0.82 : continent_view == 'North America' ? 1 / 1.4 : continent_view == 'South America' ? 1 / 1.35 : continent_view == 'Oceania' ? 1 / 0.9 : 1 / 2.7"},
+    {"name": "map_center_x", "value": 0},
+    {"name": "map_center_y", "value": 0},
+    {"name": "map_scale_factor", "value": 0.3703703704}
+  ],
+  "projection": {
+    "type": "equalEarth",
+    "center": {"expr": "[map_center_x, map_center_y]"},
+    "scale": {"expr": "height * map_scale_factor"}
+  },
   "layer": [
     {
       "data": {"url": "data/world-atlas-countries-110m.json", "format": {"type": "topojson", "feature": "countries"}},
@@ -10,6 +31,9 @@
     },
     {
       "data": {"url": "data/who-bivariate.csv"},
+      "transform": [
+        {"filter": "continent_view == 'World' || datum.continent == continent_view"}
+      ],
       "mark": {"type": "circle", "size": 48, "opacity": 0.8, "stroke": "white", "strokeWidth": 0.5},
       "encoding": {
         "longitude": {"field": "longitude", "type": "quantitative"},
@@ -21,6 +45,7 @@
         },
         "tooltip": [
           {"field": "country", "type": "nominal", "title": "Country"},
+          {"field": "continent", "type": "nominal", "title": "Continent"},
           {"field": "fatality_rate", "type": "quantitative", "title": "Fatalities per 100k", "format": ".1f"},
           {"field": "vehicles_per_100k", "type": "quantitative", "title": "Registered vehicles per 100k", "format": ",.0f"}
         ]

@@ -3,13 +3,28 @@
   "data": {"url": "data/day-hour-fatalities.csv"},
   "width": 260,
   "height": 260,
+  "params": [
+    {
+      "name": "Start_hour",
+      "value": 0,
+      "bind": {"input": "range", "min": 0, "max": 23, "step": 1, "name": "From hour: "}
+    },
+    {
+      "name": "End_hour",
+      "value": 23,
+      "bind": {"input": "range", "min": 0, "max": 23, "step": 1, "name": "To hour: "}
+    }
+  ],
+  "transform": [
+    {"filter": "datum.hour >= min(Start_hour, End_hour) && datum.hour <= max(Start_hour, End_hour)"}
+  ],
   "mark": {"type": "arc", "stroke": "white", "strokeWidth": 0.35},
   "encoding": {
     "theta": {"field": "theta", "type": "quantitative", "scale": null},
     "theta2": {"field": "theta2"},
     "radius": {"field": "radius", "type": "quantitative", "scale": null},
     "radius2": {"field": "radius2"},
-    "color": {"field": "deaths", "type": "quantitative", "title": "Fatalities", "scale": {"scheme": "blues"}},
+    "color": {"field": "deaths", "type": "quantitative", "title": "Fatalities", "scale": {"scheme": "blues", "domain": [0, 70]}},
     "tooltip": [
       {"field": "day", "type": "nominal", "title": "Day"},
       {"field": "hour", "type": "quantitative", "title": "Hour", "format": "02d"},

@@ -4,34 +4,81 @@
   "height": 250,
   "padding": {"left": 0, "right": 0, "top": 5, "bottom": 5},
   "autosize": {"type": "none", "contains": "padding"},
+  "signals": [
+    {
+      "name": "state_select",
+      "value": "All Australia",
+      "bind": {
+        "input": "select",
+        "name": "Show SA4 regions in: ",
+        "options": ["All Australia", "New South Wales", "Victoria", "Queensland", "South Australia", "Western Australia", "Tasmania", "Northern Territory", "Australian Capital Territory"]
+      }
+    },
+    {"name": "map_target_zoom", "update": "state_select === 'All Australia' ? 1 : data('selected_view')[0].zoom"},
+    {"name": "map_target_x", "update": "state_select === 'All Australia' ? 0 : data('selected_view')[0].translate_x"},
+    {"name": "map_target_y", "update": "state_select === 'All Australia' ? 0 : data('selected_view')[0].translate_y"},
+    {"name": "map_zoom", "value": 1},
+    {"name": "map_x", "value": 0},
+    {"name": "map_y", "value": 0}
+  ],
   "data": [
-    {"name": "areas", "url": "data/australia-sa4-paths.json"},
-    {"name": "fatalities", "url": "data/sa4-fatalities-2021-2025.csv", "format": {"type": "csv", "parse": {"deaths": "number", "longitude": "number", "latitude": "number"}}}
+    {
+      "name": "state_views",
+      "values": [
+        {"state_name_2021":"New South Wales","zoom":3.3419,"translate_x":-650.37,"translate_y":-414.54},
+        {"state_name_2021":"Victoria","zoom":4.6868,"translate_x":-918.30,"translate_y":-740.77},
+        {"state_name_2021":"Queensland","zoom":1.8516,"translate_x":-275.57,"translate_y":-24.67},
+        {"state_name_2021":"South Australia","zoom":2.8379,"translate_x":-311.21,"translate_y":-318.94},
+        {"state_name_2021":"Western Australia","zoom":1.6005,"translate_x":29.17,"translate_y":-49.43},
+        {"state_name_2021":"Tasmania","zoom":11.2592,"translate_x":-2487.68,"translate_y":-2347.96},
+        {"state_name_2021":"Northern Territory","zoom":2.3007,"translate_x":-202.30,"translate_y":-41.19},
+        {"state_name_2021":"Australian Capital Territory","zoom":18,"translate_x":-4359.12,"translate_y":-3083.88}
+      ]
+    },
+    {"name": "selected_view", "source": "state_views", "transform": [{"type": "filter", "expr": "datum.state_name_2021 === state_select"}]},
+    {"name": "areas_all", "url": "data/australia-sa4-paths.json"},
+    {"name": "areas", "source": "areas_all", "transform": [{"type": "filter", "expr": "state_select === 'All Australia' || datum.state_name_2021 === state_select"}]},
+    {
+      "name": "fatalities_all",
+      "url": "data/sa4-fatalities-2021-2025.csv",
+      "format": {"type": "csv", "parse": {"deaths": "number", "longitude": "number", "latitude": "number"}}
+    },
+    {
+      "name": "fatalities",
+      "source": "fatalities_all",
+      "transform": [{"type": "filter", "expr": "state_select === 'All Australia' || datum.state_name_2021 === state_select"}]
+    }
   ],
   "scales": [
-    {"name": "longitude", "type": "linear", "domain": [109,157], "range": [0,300]},
-    {"name": "latitude", "type": "linear", "domain": [-47,-7], "range": [250,0]},
-    {"name": "size", "type": "sqrt", "domain": {"data": "fatalities", "field": "deaths"}, "range": [10,650]}
+    {"name": "longitude", "type": "linear", "domain": [109,157], "range": [0,300], "zero": false},
+    {"name": "latitude", "type": "linear", "domain": [-47,-7], "range": [250,0], "zero": false},
+    {"name": "size", "type": "sqrt", "domain": {"data": "fatalities", "field": "deaths"}, "range": [10,460]}
   ],
   "marks": [
     {
       "type": "path",
       "from": {"data": "areas"},
-      "encode": {"enter": {"path": {"field": "path"}, "fill": {"value": "#e4eceb"}, "stroke": {"value": "white"}, "strokeWidth": {"value": 0.35}}}
+      "clip": true,
+      "encode": {
+        "enter": {"path": {"field": "path"}, "fill": {"value": "#e4eceb"}, "stroke": {"value": "white"}},
+        "update": {"x": {"signal": "map_x"}, "y": {"signal": "map_y"}, "scaleX": {"signal": "map_zoom"}, "scaleY": {"signal": "map_zoom"}, "strokeWidth": {"signal": "0.35 / map_zoom"}}
+      }
     },
     {
       "type": "symbol",
       "from": {"data": "fatalities"},
       "encode": {
         "enter": {
-          "x": {"scale": "longitude", "field": "longitude"},
-          "y": {"scale": "latitude", "field": "latitude"},
           "size": {"scale": "size", "field": "deaths"},
           "fill": {"value": "#17324d"},
           "fillOpacity": {"value": 0.72},
           "stroke": {"value": "white"},
           "strokeWidth": {"value": 0.6},
-          "tooltip": {"signal": "{'SA4': datum.sa4_name_2021, 'Fatalities': datum.deaths}"}
+          "tooltip": {"signal": "{'SA4': datum.sa4_name_2021, 'State / territory': datum.state_name_2021, 'Fatalities': datum.deaths}"}
+        },
+        "update": {
+          "x": {"signal": "scale('longitude', datum.longitude) * map_zoom + map_x"},
+          "y": {"signal": "scale('latitude', datum.latitude) * map_zoom + map_y"}
         }
       }
     }

@@ -25,7 +25,7 @@
           "domain": ["Major Cities of Australia","Inner Regional Australia","Outer Regional Australia","Remote Australia","Very Remote Australia"],
           "range": ["#0072b2","#56b4e9","#009e73","#e69f00","#d55e00"]
         },
-        "legend": {"orient": "bottom", "direction": "horizontal", "columns": 3, "titleLimit": 160, "labelLimit": 190}
+        "legend": {"orient": "bottom", "direction": "horizontal", "columns": 3, "titleLimit": 160, "labelLimit": 190, "symbolOpacity": 0.62}
       },
       "tooltip": [
         {"field": "remoteness", "type": "nominal", "title": "Remoteness"},
