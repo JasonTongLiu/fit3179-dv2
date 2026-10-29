@@ -7,7 +7,7 @@
   <!-- Pure.css grid, following the FIT3179 multiple-visualisations studio structure. -->
   <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css">
   <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/grids-responsive-min.css">
-  <link rel="stylesheet" href="css/styles.css?v=20261017-21">
+  <link rel="stylesheet" href="css/styles.css?v=20261028-01">
   <!-- Vega and Vega-Lite versions used by the studio examples. -->
   <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
@@ -27,7 +27,8 @@
           <circle class="road-marker road-marker-end" cx="81" cy="169" r="9" />
         </svg>
       </div>
-      <p class="lead">Australia's roads are much safer than they were three decades ago, but recent progress is uneven. The following charts use only the latest downloaded records—no forecast values are added.</p>
+      <p class="byline">By Jason Tong Liu <span aria-hidden="true">·</span> Oct 28, 2026</p>
+      <p class="lead">Australia cut its road toll dramatically over three decades. Yet 1,310 people died in 2025—more than twice the 2030 target. This story follows the slowdown from the national trend to the places, times, and road users carrying the burden.</p>
     </header>
 
     <nav class="chapter-tabs" aria-label="Story chapters">
@@ -41,11 +42,12 @@
     <section id="chapter-1" class="story-section" aria-labelledby="trend-heading">
       <div class="section-heading">
         <p class="section-number">01</p>
-        <div><h2 id="trend-heading">A long decline, then slower progress</h2><p>Start with the national pattern and compare the latest complete year with the 2030 target.</p></div>
+        <div><h2 id="trend-heading">A long decline, then slower progress</h2><p>Start with the national pattern and compare recent progress with the 2030 target.</p></div>
       </div>
       <div class="narrative-block">
         <p>Australia recorded 2,800 road deaths in 1989. By 2025, that total had fallen to 1,310, while the population-adjusted fatality rate declined from 16.5 to 4.7 deaths per 100,000 people.</p>
         <p>The long-term improvement is substantial, but the recent path is less reassuring. The 2025 total remains more than twice the 2030 target of about 570 deaths. The 2026 point covers January to July only, so it is shown for recency rather than used as a full-year comparison.</p>
+        <p class="story-bridge">The national curve raises the next question: if progress has slowed, where is the remaining burden concentrated?</p>
       </div>
       <div class="pure-g chart-row"><div class="pure-u-1"><article class="chart-card">
         <h3>Fatalities and fatality rate, 1989–2026</h3>
@@ -76,6 +78,7 @@
       <div class="narrative-block">
         <p>The national average conceals a wide geographic gap. In 2025, the Northern Territory recorded 14.2 deaths per 100,000 people, compared with 1.8 in the Australian Capital Territory. Using rates here matters because state populations differ greatly.</p>
         <p>At SA4 level, the map switches to totals: Wide Bay and Western Australia’s Wheat Belt recorded the largest 2021–2025 counts in this dataset. These circles show where deaths accumulated, not where an individual faced the highest risk. The age distributions below add another layer by showing how the profile changes with remoteness.</p>
+        <p class="story-bridge">Place explains part of the pattern. The next chapter moves from where deaths occur to when they happen and who is involved.</p>
       </div>
       <div class="pure-g chart-row map-row">
         <div class="pure-u-1 pure-u-md-1-2"><article class="chart-card">
@@ -98,7 +101,7 @@
           <h3>Age profile by remoteness</h3>
           <div id="chart-6" class="vis-container vis-wide" aria-label="Age distributions by remoteness area"></div>
           <p class="chart-narrative">The peaks and spreads change across remoteness categories, showing that the age profile of fatalities is not identical everywhere. This supports treating remoteness as part of the road-safety context rather than assuming one national age pattern.</p>
-          <p class="reading-tip"><strong>How to read:</strong> Compare where each coloured ridge peaks and how widely it spreads. Ridge height represents density—the shape of the age distribution—not the number of deaths.</p>
+          <p class="reading-tip"><strong>How to read:</strong> Move the pointer left or right across any ridge. The coral cursor applies the same selected age to every row; the dots and labels show each remoteness category's smoothed relative density at that age. Ridge height represents distribution shape, not the number of deaths.</p>
           <p class="source-note">Source: BITRE ARDD, 2021–2025.</p>
         </article></div>
       </div>
@@ -109,6 +112,7 @@
       <div class="narrative-block">
         <p>Fatalities are not evenly distributed across the week. The largest day–hour cell is Friday at 3 pm, with 70 recorded deaths from 2021–2025, while several other peaks occur on Thursday, Friday, and Sunday afternoons.</p>
         <p>Drivers form the largest road-user group in the data, and drivers aged 40–64 form the largest road-user–age cell. The alluvial view then follows these records through crash type and speed band, showing that road-user risk is connected to the context in which a crash occurs.</p>
+        <p class="story-bridge">Together, these patterns turn a national total into a more specific prevention story. The final comparison asks how much further Australia could go.</p>
       </div>
       <div class="pure-g chart-row three-column-row">
         <div class="pure-u-1 pure-u-md-1-3"><article class="chart-card">
@@ -136,16 +140,17 @@
     </section>
 
     <section id="chapter-4" class="story-section" aria-labelledby="world-heading">
-      <div class="section-heading"><p class="section-number">04</p><div><h2 id="world-heading">Australia in international context</h2><p>Compare reported outcomes with vehicle ownership and peer-country rankings.</p></div></div>
+      <div class="section-heading"><p class="section-number">04</p><div><h2 id="world-heading">Australia in international context</h2><p>Compare reported outcomes, vehicle ownership context, and peer-country rankings.</p></div></div>
       <div class="narrative-block">
-        <p>The WHO indicators place Australia at 4.5 road deaths per 100,000 people, despite a high level of registered vehicle ownership. This suggests that vehicle numbers alone do not determine road-safety outcomes; road design, travel patterns, enforcement, and policy also matter.</p>
+        <p>The WHO indicators place Australia at 4.5 road deaths per 100,000 people, toward the lower end of the reported global distribution. Vehicle ownership appears in the tooltip as context, but the map does not test causation. Reporting years, travel exposure, road design, enforcement, and policy all complicate country comparisons.</p>
         <p>Among the nine selected peer countries, Australia ranked sixth in 2023 when first place represents the lowest fatality rate. Country reporting years and definitions can vary, so the comparison is best read as international context rather than a perfect league table.</p>
+        <p class="story-bridge">The comparison is still useful: several highly motorised peers record lower rates, showing that Australia’s current outcome is not the limit of what is achievable.</p>
       </div>
       <div class="pure-g chart-row"><div class="pure-u-1"><article class="chart-card">
         <h3>Road fatality rates worldwide</h3>
         <div id="chart-10" class="vis-container vis-world" aria-label="Worldwide road fatality-rate dot map"></div>
-        <p class="chart-narrative">Australia's reported rate of 4.5 deaths per 100,000 people sits toward the lower end of the global distribution while its registered vehicle ownership is high. Across countries, the map does not show a simple one-factor relationship between vehicle numbers and road deaths.</p>
-        <p class="reading-tip"><strong>How to read:</strong> Each fixed-size dot represents a country and colour shows its fatality rate. Choose a continent to filter the countries and zoom the map; select <em>World</em> to reset. Hover over a dot for details.</p>
+        <p class="chart-narrative">Australia's reported rate of 4.5 deaths per 100,000 people sits toward the lower end of the global distribution. Vehicle ownership is available on hover as supporting context, not as evidence that one factor explains national road-safety outcomes.</p>
+        <p class="reading-tip"><strong>How to read:</strong> Each fixed-size dot represents a country and colour shows its fatality rate. Australia is highlighted directly on the map in coral. Choose a continent to filter the countries and zoom the map; select <em>World</em> to reset. Hover over a dot for details.</p>
         <p class="source-note">Source: WHO GSRRS 2023 indicators; Natural Earth World Atlas. ISO3 codes are joined through a numeric-ID crosswalk.</p>
       </article></div></div>
       <div class="pure-g chart-row"><div class="pure-u-1"><article class="chart-card">
@@ -163,25 +168,30 @@
         <p>Australia’s road-safety story is one of major long-term improvement followed by slower recent progress. A national total of 1,310 deaths in 2025 remains far above the 2030 target, so repeating the pace of the last few years will not be enough.</p>
         <p>The evidence points toward targeted action rather than a single national solution: compare places using population-adjusted rates, investigate regional clusters without confusing totals with risk, and focus prevention on the road users, times, and crash contexts where deaths concentrate.</p>
         <p>International comparisons show that lower fatality rates are achievable even in highly motorised countries. The road ahead therefore depends on combining safer infrastructure, safer speeds, safer vehicles, and safer behaviour—and measuring progress with complete, comparable data.</p>
+        <p>The central finding is therefore not that Australia has failed to improve. It is that past success has made the unfinished task more visible: the remaining deaths are unevenly distributed, and the next gains will require attention to those differences.</p>
       </div>
     </section>
 
     <section class="references-section" aria-labelledby="references-heading">
       <h2 id="references-heading">References</h2>
       <ol>
-        <li>Bureau of Infrastructure and Transport Research Economics. <em>Australian Road Deaths Database</em>, records available to July 2026.</li>
-        <li>Australian Bureau of Statistics. <em>National, state and territory population</em>, December 2025.</li>
-        <li>Australian Government. <em>National Road Safety Strategy 2021–30</em>, 2030 road-death target data.</li>
-        <li>Australian Bureau of Statistics. <em>Australian Statistical Geography Standard, Edition 3</em>, 2021 state, territory and SA4 generalised boundaries.</li>
-        <li>World Health Organization. <em>Global status report on road safety 2023</em>, country indicator data.</li>
-        <li>OECD and International Transport Forum. <em>Annual road safety data</em>, 1990–2023.</li>
-        <li>OECD. <em>Peer-country population data</em>, 1990–2023.</li>
-        <li>Natural Earth and World Atlas. <em>Admin 0 country boundaries</em>, 1:110 million scale.</li>
+        <li>Bureau of Infrastructure and Transport Research Economics. <a href="https://www.bitre.gov.au/statistics/safety/fatal_road_crash_database" target="_blank" rel="noreferrer"><em>Australian Road Deaths Database</em></a>, records available to July 2026.</li>
+        <li>Australian Bureau of Statistics. <a href="https://www.abs.gov.au/statistics/people/population/national-state-and-territory-population" target="_blank" rel="noreferrer"><em>National, state and territory population</em></a>, December 2025.</li>
+        <li>Australian Government. <a href="https://www.roadsafety.gov.au/nrss" target="_blank" rel="noreferrer"><em>National Road Safety Strategy 2021–30</em></a>, 2030 road-death target data.</li>
+        <li>Australian Bureau of Statistics. <a href="https://www.abs.gov.au/statistics/standards/australian-statistical-geography-standard-asgs/edition-3-july-2021-june-2026/access-and-downloads/digital-boundary-files" target="_blank" rel="noreferrer"><em>Australian Statistical Geography Standard, Edition 3</em></a>, 2021 state, territory and SA4 boundaries.</li>
+        <li>World Health Organization. <a href="https://www.who.int/teams/social-determinants-of-health/safety-and-mobility/global-status-report-on-road-safety-2023" target="_blank" rel="noreferrer"><em>Global status report on road safety 2023</em></a>, country indicator data.</li>
+        <li>OECD and International Transport Forum. <a href="https://itf-oecd.org/irtad-road-safety-database" target="_blank" rel="noreferrer"><em>IRTAD Road Safety Database</em></a>, annual road-safety data, 1990–2023.</li>
+        <li>OECD. <a href="https://data-explorer.oecd.org/" target="_blank" rel="noreferrer"><em>OECD Data Explorer</em></a>, peer-country population data, 1990–2023.</li>
+        <li>Natural Earth and World Atlas. <a href="https://www.naturalearthdata.com/downloads/110m-cultural-vectors/" target="_blank" rel="noreferrer"><em>Admin 0 country boundaries</em></a> and <a href="https://github.com/topojson/world-atlas" target="_blank" rel="noreferrer">World Atlas TopoJSON</a>, 1:110 million scale.</li>
       </ol>
     </section>
 
+    <footer class="site-footer">
+      <p><strong>AI acknowledgement:</strong> Generative AI was used to refine wording and brainstorm initial visual and storytelling ideas. The author checked the data, source selection, visual encodings, annotations, and final editorial decisions.</p>
+    </footer>
+
   </main>
-  <script src="js/vega-lite-vis.js?v=20261017-18"></script>
-  <script src="js/chapter-nav.js?v=20261017-18"></script>
+  <script src="js/vega-lite-vis.js?v=20261029-01"></script>
+  <script src="js/chapter-nav.js?v=20261028-01"></script>
 </body>
 </html>

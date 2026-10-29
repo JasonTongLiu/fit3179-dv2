@@ -131,6 +131,17 @@ h3 {
   text-wrap: pretty;
 }
 
+.byline {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.025em;
+}
+
+.byline span,
+.site-footer span { padding: 0 0.35em; }
+
 .chapter-tabs {
   position: sticky;
   top: 0;
@@ -329,6 +340,15 @@ h3 {
 .narrative-block p:last-child,
 .conclusion-panel p:last-child { margin-bottom: 0; }
 
+.narrative-block .story-bridge {
+  margin-top: 1.05em;
+  padding-top: 0.8em;
+  border-top: 1px solid var(--line);
+  color: var(--navy);
+  font-style: italic;
+  font-weight: 700;
+}
+
 .conclusion-section { padding-bottom: 16px; }
 
 .conclusion-panel {
@@ -370,6 +390,42 @@ h3 {
 }
 
 .references-section li:last-child { margin-bottom: 0; }
+
+.references-section a {
+  color: var(--navy);
+  text-decoration-color: #8aa3aa;
+  text-underline-offset: 0.16em;
+}
+
+.references-section a:hover,
+.references-section a:focus-visible {
+  color: var(--coral);
+  text-decoration-thickness: 2px;
+}
+
+.references-section a:focus-visible {
+  outline: 2px solid var(--coral);
+  outline-offset: 2px;
+}
+
+.site-footer {
+  margin-top: 30px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.76rem;
+  line-height: 1.55;
+}
+
+.site-footer p {
+  max-width: 78ch;
+  margin-bottom: 0.55rem;
+  text-wrap: pretty;
+}
+
+.site-footer p:last-child { margin-bottom: 0; }
+
+.site-footer strong { color: var(--navy); }
 
 @media (min-width: 900px) {
   .references-section ol {

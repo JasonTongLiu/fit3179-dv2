@@ -33,11 +33,11 @@
             {"filter": "datum.year <= 2025"},
             {"calculate": "'Fatalities'", "as": "metric"}
           ],
-          "mark": {"type": "line", "strokeWidth": 3},
+          "mark": {"type": "line", "strokeWidth": 3, "point": {"filled": true, "size": 64}},
           "encoding": {
             "y": {
               "field": "deaths", "type": "quantitative", "title": "Fatalities",
-              "scale": {"zero": false},
+              "scale": {"zero": true},
               "axis": {"orient": "left", "titleColor": "#17324d", "labelColor": "#17324d"}
             },
             "color": {
@@ -47,8 +47,7 @@
             },
             "tooltip": [
               {"field": "year", "type": "quantitative", "title": "Year", "format": "d"},
-              {"field": "deaths", "type": "quantitative", "title": "Fatalities", "format": ","},
-              {"field": "period_status", "type": "nominal", "title": "Coverage"}
+              {"field": "deaths", "type": "quantitative", "title": "Fatalities", "format": ","}
             ]
           }
         },
@@ -56,11 +55,10 @@
           "transform": [{"filter": "datum.year == 2026"}],
           "mark": {"type": "point", "filled": true, "size": 115, "color": "#b7432e", "stroke": "white", "strokeWidth": 1.5},
           "encoding": {
-            "y": {"field": "deaths", "type": "quantitative", "scale": {"zero": false}},
+            "y": {"field": "deaths", "type": "quantitative", "scale": {"zero": true}},
             "tooltip": [
               {"field": "year", "type": "quantitative", "title": "Year", "format": "d"},
-              {"field": "deaths", "type": "quantitative", "title": "Jan–Jul fatalities", "format": ","},
-              {"field": "period_status", "type": "nominal", "title": "Coverage"}
+              {"field": "deaths", "type": "quantitative", "title": "Jan–Jul fatalities", "format": ","}
             ]
           }
         },
@@ -68,8 +66,26 @@
           "transform": [{"filter": "datum.year == 2026"}],
           "mark": {"type": "text", "align": "right", "dx": -8, "dy": -12, "fontSize": 11, "fontWeight": "bold", "color": "#b7432e"},
           "encoding": {
-            "y": {"field": "deaths", "type": "quantitative", "scale": {"zero": false}},
+            "y": {"field": "deaths", "type": "quantitative", "scale": {"zero": true}},
             "text": {"value": "Jan–Jul 2026"}
+          }
+        },
+        {
+          "transform": [{"filter": "datum.year == 2020 || datum.year == 2025"}],
+          "mark": {"type": "point", "filled": true, "size": 55, "color": "#17324d", "stroke": "white", "strokeWidth": 1},
+          "encoding": {
+            "y": {"field": "deaths", "type": "quantitative", "scale": {"zero": true}}
+          }
+        },
+        {
+          "transform": [
+            {"filter": "datum.year == 2020 || datum.year == 2025"},
+            {"calculate": "datum.year == 2020 ? '2020 low · 1,097' : '2025 · 1,310'", "as": "annotation"}
+          ],
+          "mark": {"type": "text", "align": "center", "dy": -13, "fontSize": 10, "fontWeight": "bold", "color": "#17324d"},
+          "encoding": {
+            "y": {"field": "deaths", "type": "quantitative", "scale": {"zero": true}},
+            "text": {"field": "annotation"}
           }
         }
       ]
@@ -79,11 +95,11 @@
         {"filter": "datum.year <= 2025"},
         {"calculate": "'Fatality rate'", "as": "metric"}
       ],
-      "mark": {"type": "line", "strokeWidth": 3, "point": {"filled": true, "size": 18}},
+      "mark": {"type": "line", "strokeWidth": 3, "point": {"filled": true, "size": 64}},
       "encoding": {
         "y": {
           "field": "fatality_rate", "type": "quantitative", "title": "Deaths per 100,000",
-          "scale": {"zero": false},
+          "scale": {"zero": true},
           "axis": {"orient": "right", "titleColor": "#18786f", "labelColor": "#18786f", "grid": false}
         },
         "color": {

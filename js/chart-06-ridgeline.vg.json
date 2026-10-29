@@ -14,24 +14,78 @@
   "spec": {
     "width": 720,
     "height": 48,
-    "mark": {"type": "area", "interpolate": "monotone", "fillOpacity": 0.62, "strokeWidth": 1.2},
-    "encoding": {
-      "x": {"field": "value", "type": "quantitative", "title": "Age", "scale": {"domain": [0, 100]}, "axis": {"tickCount": 6}},
-      "y": {"field": "density", "type": "quantitative", "title": null, "axis": null},
-      "color": {
-        "field": "remoteness", "type": "nominal", "title": "Remoteness",
-        "sort": ["Major Cities of Australia","Inner Regional Australia","Outer Regional Australia","Remote Australia","Very Remote Australia"],
-        "scale": {
-          "domain": ["Major Cities of Australia","Inner Regional Australia","Outer Regional Australia","Remote Australia","Very Remote Australia"],
-          "range": ["#0072b2","#56b4e9","#009e73","#e69f00","#d55e00"]
-        },
-        "legend": {"orient": "bottom", "direction": "horizontal", "columns": 3, "titleLimit": 160, "labelLimit": 190, "symbolOpacity": 0.62}
+    "layer": [
+      {
+        "mark": {"type": "area", "interpolate": "monotone", "fillOpacity": 0.62, "strokeWidth": 1.2},
+        "encoding": {
+          "x": {"field": "value", "type": "quantitative", "title": "Age", "scale": {"domain": [0, 100]}, "axis": {"tickCount": 6}},
+          "y": {"field": "density", "type": "quantitative", "title": null, "axis": null, "scale": {"domain": [0, 0.022]}},
+          "color": {
+            "field": "remoteness", "type": "nominal", "title": "Remoteness",
+            "sort": ["Major Cities of Australia","Inner Regional Australia","Outer Regional Australia","Remote Australia","Very Remote Australia"],
+            "scale": {
+              "domain": ["Major Cities of Australia","Inner Regional Australia","Outer Regional Australia","Remote Australia","Very Remote Australia"],
+              "range": ["#0072b2","#56b4e9","#009e73","#e69f00","#d55e00"]
+            },
+            "legend": {"orient": "bottom", "direction": "horizontal", "columns": 3, "titleLimit": 160, "labelLimit": 190, "symbolOpacity": 0.62}
+          },
+          "tooltip": [
+            {"field": "remoteness", "type": "nominal", "title": "Remoteness"},
+            {"field": "value", "type": "quantitative", "title": "Age", "format": ".0f"}
+          ]
+        }
       },
-      "tooltip": [
-        {"field": "remoteness", "type": "nominal", "title": "Remoteness"},
-        {"field": "value", "type": "quantitative", "title": "Age", "format": ".0f"}
-      ]
-    }
+      {
+        "params": [
+          {
+            "name": "age_cursor",
+            "value": {"value": 0},
+            "select": {"type": "point", "fields": ["value"], "nearest": true, "on": "pointermove", "clear": false}
+          }
+        ],
+        "mark": {"type": "point", "opacity": 0},
+        "encoding": {
+          "x": {"field": "value", "type": "quantitative", "scale": {"domain": [0, 100]}},
+          "y": {"field": "density", "type": "quantitative", "scale": {"domain": [0, 0.022]}}
+        }
+      },
+      {
+        "transform": [{"filter": {"param": "age_cursor", "empty": false}}],
+        "mark": {"type": "rule", "color": "#b7432e", "strokeWidth": 1.6},
+        "encoding": {
+          "x": {"field": "value", "type": "quantitative", "scale": {"domain": [0, 100]}}
+        }
+      },
+      {
+        "transform": [
+          {"filter": {"param": "age_cursor", "empty": false}},
+          {"calculate": "datum.density * 100", "as": "density_percent"}
+        ],
+        "mark": {"type": "point", "filled": true, "size": 52, "stroke": "white", "strokeWidth": 1},
+        "encoding": {
+          "x": {"field": "value", "type": "quantitative", "scale": {"domain": [0, 100]}},
+          "y": {"field": "density", "type": "quantitative", "scale": {"domain": [0, 0.022]}},
+          "color": {"value": "#17324d"},
+          "tooltip": [
+            {"field": "remoteness", "type": "nominal", "title": "Remoteness"},
+            {"field": "value", "type": "quantitative", "title": "Selected age", "format": ".0f"},
+            {"field": "density_percent", "type": "quantitative", "title": "Relative density", "format": ".2f"}
+          ]
+        }
+      },
+      {
+        "transform": [
+          {"filter": {"param": "age_cursor", "empty": false}},
+          {"calculate": "'Age ' + format(datum.value, '.0f') + ' · ' + format(datum.density * 100, '.2f') + '% density'", "as": "cursor_label"}
+        ],
+        "mark": {"type": "text", "align": "right", "baseline": "top", "fontSize": 9, "fontWeight": "bold", "color": "#17324d"},
+        "encoding": {
+          "x": {"datum": 99, "type": "quantitative", "scale": {"domain": [0, 100]}},
+          "y": {"value": 3},
+          "text": {"field": "cursor_label"}
+        }
+      }
+    ]
   },
   "resolve": {"scale": {"color": "shared"}},
   "config": {

@@ -1,8 +1,8 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "data": {"url": "data/day-hour-fatalities.csv"},
-  "width": 260,
-  "height": 260,
+  "width": 300,
+  "height": 300,
   "params": [
     {
       "name": "Start_hour",
@@ -15,21 +15,73 @@
       "bind": {"input": "range", "min": 0, "max": 23, "step": 1, "name": "To hour: "}
     }
   ],
-  "transform": [
-    {"filter": "datum.hour >= min(Start_hour, End_hour) && datum.hour <= max(Start_hour, End_hour)"}
+  "layer": [
+    {
+      "transform": [
+        {"filter": "datum.hour >= min(Start_hour, End_hour) && datum.hour <= max(Start_hour, End_hour)"}
+      ],
+      "mark": {"type": "arc", "stroke": "white", "strokeWidth": 0.35},
+      "encoding": {
+        "theta": {"field": "theta", "type": "quantitative", "scale": null},
+        "theta2": {"field": "theta2"},
+        "radius": {"field": "radius", "type": "quantitative", "scale": null},
+        "radius2": {"field": "radius2"},
+        "color": {"field": "deaths", "type": "quantitative", "title": "Fatalities", "scale": {"scheme": "blues", "domain": [0, 70]}},
+        "tooltip": [
+          {"field": "day", "type": "nominal", "title": "Day"},
+          {"field": "hour", "type": "quantitative", "title": "Hour", "format": "02d"},
+          {"field": "deaths", "type": "quantitative", "title": "Fatalities", "format": ","}
+        ]
+      }
+    },
+    {
+      "transform": [
+        {"filter": "datum.day == 'Friday' && datum.hour == 15"},
+        {"filter": "datum.hour >= min(Start_hour, End_hour) && datum.hour <= max(Start_hour, End_hour)"}
+      ],
+      "mark": {"type": "arc", "fillOpacity": 0, "stroke": "#b7432e", "strokeWidth": 2.5},
+      "encoding": {
+        "theta": {"field": "theta", "type": "quantitative", "scale": null},
+        "theta2": {"field": "theta2"},
+        "radius": {"field": "radius", "type": "quantitative", "scale": null},
+        "radius2": {"field": "radius2"}
+      }
+    },
+    {
+      "data": {"values": [
+        {"label": "0", "x": 150, "y": 18},
+        {"label": "6", "x": 282, "y": 150},
+        {"label": "12", "x": 150, "y": 282},
+        {"label": "18", "x": 18, "y": 150}
+      ]},
+      "mark": {"type": "text", "fontSize": 9, "fontWeight": "bold", "color": "#53636d"},
+      "encoding": {
+        "x": {"field": "x", "type": "quantitative", "scale": null},
+        "y": {"field": "y", "type": "quantitative", "scale": null},
+        "text": {"field": "label"}
+      }
+    },
+    {
+      "data": {"values": [
+        {"label": "Centre → outer: Mon  Tue  Wed  Thu  Fri  Sat  Sun", "x": 150, "y": 295}
+      ]},
+      "mark": {"type": "text", "fontSize": 8, "fontWeight": "bold", "color": "#17324d"},
+      "encoding": {
+        "x": {"field": "x", "type": "quantitative", "scale": null},
+        "y": {"field": "y", "type": "quantitative", "scale": null},
+        "text": {"field": "label"}
+      }
+    },
+    {
+      "data": {"values": [{"label": "Peak: Fri 3 pm · 70", "x": 10, "y": 15, "hour": 15}]},
+      "transform": [{"filter": "datum.hour >= min(Start_hour, End_hour) && datum.hour <= max(Start_hour, End_hour)"}],
+      "mark": {"type": "text", "align": "left", "fontSize": 9, "fontWeight": "bold", "color": "#b7432e"},
+      "encoding": {
+        "x": {"field": "x", "type": "quantitative", "scale": null},
+        "y": {"field": "y", "type": "quantitative", "scale": null},
+        "text": {"field": "label"}
+      }
+    }
   ],
-  "mark": {"type": "arc", "stroke": "white", "strokeWidth": 0.35},
-  "encoding": {
-    "theta": {"field": "theta", "type": "quantitative", "scale": null},
-    "theta2": {"field": "theta2"},
-    "radius": {"field": "radius", "type": "quantitative", "scale": null},
-    "radius2": {"field": "radius2"},
-    "color": {"field": "deaths", "type": "quantitative", "title": "Fatalities", "scale": {"scheme": "blues", "domain": [0, 70]}},
-    "tooltip": [
-      {"field": "day", "type": "nominal", "title": "Day"},
-      {"field": "hour", "type": "quantitative", "title": "Hour", "format": "02d"},
-      {"field": "deaths", "type": "quantitative", "title": "Fatalities", "format": ","}
-    ]
-  },
   "config": {"view": {"stroke": null}, "legend": {"orient": "bottom", "gradientLength": 130}}
 }

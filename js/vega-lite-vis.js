@@ -5,7 +5,7 @@ const chartOptions = {
 
 // Change this value when chart specifications are updated so local previews
 // and GitHub Pages do not keep an older cached JSON specification.
-const chartVersion = '20261017-18';
+const chartVersion = '20261029-01';
 
 const animatedMapSelectors = new Set(['#chart-4', '#chart-5']);
 const activeMapAnimations = new WeakMap();

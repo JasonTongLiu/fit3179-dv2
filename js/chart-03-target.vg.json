@@ -6,7 +6,7 @@
   "padding": {"left": 8, "right": 28, "top": 5, "bottom": 5},
   "autosize": {"type": "fit", "contains": "padding", "resize": true},
   "encoding": {
-    "y": {"field": "label", "type": "nominal", "title": null, "sort": {"field": "order", "order": "ascending"}, "axis": {"labelLimit": 175, "labelPadding": 7}}
+    "y": {"field": "label", "type": "nominal", "title": null, "sort": ["2018–2020 baseline", "2025 observed", "2030 target"], "axis": {"labelLimit": 175, "labelPadding": 7}}
   },
   "layer": [
     {
@@ -23,7 +23,7 @@
     {
       "mark": {"type": "text", "align": "left", "dx": 5, "fontWeight": "bold", "fontSize": 11},
       "encoding": {
-        "x": {"field": "deaths", "type": "quantitative"},
+        "x": {"field": "deaths", "type": "quantitative", "scale": {"domain": [0, 1500]}},
         "text": {"field": "deaths", "type": "quantitative", "format": ",.0f"},
         "color": {"value": "#17252f"}
       }
